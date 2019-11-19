@@ -63,8 +63,8 @@ public:
 		using seqan::prefix;
 		using seqan::suffix;
 		
-		TSeqRead &seqRead = *sr;
-		int readLength    = length(seqRead.seq);
+		TSeqRead &seqRead1 = *sr;
+		int readLength    = length(seqRead1.seq);
 		
 		if(! m_isBarcoding && readLength < m_minLength){
 			if(cycle != PRELOAD) ++m_nPreShortReads;
@@ -84,7 +84,7 @@ public:
 				else if(alMode == ALIGNRC    && ! m_queries->at(i).rcAdapter) continue;
 				
 				TSeqStr *qseq = &m_queries->at(i).seq;
-				TSeqStr *rseq = &seqRead.seq;
+				TSeqStr *rseq = &seqRead1.seq;
 				TSeqStr tmp, tmpq;
 				
 				if(! m_isBarcoding && m_addBarcodeAdapter && addBarcode != ""){
@@ -97,8 +97,8 @@ public:
 					int tailLength  = (m_tailLength > 0) ? m_tailLength : length(*qseq);
 					
 					if(tailLength < readLength){
-						if(trimEnd == LTAIL) tmp = prefix(seqRead.seq, tailLength);
-						else                 tmp = suffix(seqRead.seq, readLength - tailLength);
+						if(trimEnd == LTAIL) tmp = prefix(seqRead1.seq, tailLength);
+						else                 tmp = suffix(seqRead1.seq, readLength - tailLength);
 						rseq = &tmp;
 					}
 				}
@@ -123,7 +123,7 @@ public:
 		stringstream s;
 		// align each query sequence and store best one
 		for(unsigned int i = 0; i < m_queries->size(); ++i){
-			
+			TSeqRead seqRead = seqRead1;
 			if     (alMode == ALIGNRCOFF &&   m_queries->at(i).rcAdapter) continue;
 			else if(alMode == ALIGNRC    && ! m_queries->at(i).rcAdapter) continue;
 			
