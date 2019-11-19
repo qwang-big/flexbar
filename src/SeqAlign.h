@@ -120,6 +120,7 @@ public:
 		int qIndex  = -1;
 		int amScore = numeric_limits<int>::min();
 		
+		stringstream s;
 		// align each query sequence and store best one
 		for(unsigned int i = 0; i < m_queries->size(); ++i){
 			
@@ -161,12 +162,12 @@ public:
 			if(validAl && a.score > amScore && madeErrors <= a.allowedErrors && a.overlapLength >= minOverlap){
 				
 				am      = a;
-				amScore = a.score;
+				//amScore = a.score;
 				qIndex  = i;
-			}
-		}
+//			}
+//		}
 		
-		stringstream s;
+		//stringstream s;
 		
 		// valid alignment
 		if(qIndex >= 0){
@@ -309,7 +310,7 @@ public:
 		ouputMutex.lock();
 		*m_out << s.str();
 		ouputMutex.unlock();
-		
+		}}
 		return ++qIndex;
 	}
 	
