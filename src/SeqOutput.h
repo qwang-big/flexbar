@@ -49,7 +49,7 @@ public:
 		m_filePath += o.outCompression;
 		
 		m_lengthDist = tbb::concurrent_vector<unsigned long>(MAX_READLENGTH + 1, 0);
-		
+		return;
 		if(m_useStdout){
 			
 			if(m_format == FASTA || m_switch2Fasta)
@@ -105,8 +105,8 @@ public:
 	}
 	
 	
-	void writeSeqRead(flexbar::TSeqRead &seqRead){
-		
+	void writeSeqRead(flexbar::TSeqRead &seqRead){}
+	void writeSeqRead1(flexbar::TSeqRead &seqRead){	
 		using namespace std;
 		using namespace flexbar;
 		
